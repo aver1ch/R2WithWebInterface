@@ -1,20 +1,112 @@
 .container {
   display: flex;
-  justify-content: center; /* центр по горизонтали */
-  align-items: center;     /* центр по вертикали */
-  height: 100vh;           /* 100% высоты окна */
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-.rectangle-black{
-  background-color: #2c2c2c;
-  height: 100px;
-  width: 120px;
-  opacity: 0.5;
-  border-radius: 10px;
+html, body, #root {
+  margin: 0;
 }
+
+/* Анимация появления с лёгким смещением вверх */
+.fade-in {
+  opacity: 0;                /* изначально прозрачный */
+  transform: translateY(20px); /* немного смещён вниз */
+  animation: fadeInUp 1s ease forwards; /* запускаем анимацию */
+}
+
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Можно добавить задержку для отдельных элементов */
+.fade-in-delay {
+  animation-delay: 0.5s; /* задержка полсекунды */
+}
+
+.rectangle-black {
+  background-color: rgba(44, 44, 44, 0.4);
+  height: 500px;
+  width: 1000px;
+  border-radius: 150px;
+  border: 1px solid rgb(255, 255, 255);
+  box-shadow: 0px 0px 25px rgb(255, 255, 255);
+
+  display: flex;
+  flex-direction: column;     /* элементы идут сверху вниз */
+  justify-content: center;    /* центрируем по вертикали */
+  align-items: center;        /* центрируем по горизонтали */
+  text-align: center;         /* выравнивание текста внутри по центру */
+  padding: 40px;              /* небольшой отступ от краёв */
+}
+
 
 .background-main {
-          background-image: url('/public/176037-uzor-fraktalnoe_iskusstvo-dizajn-korichnevyj_cvet-seryj_cvet-1920x1080.jpg');
-          background-repeat: no-repeat;
-          background-size: cover;
+  background-image: url('/public/176037-uzor-fraktalnoe_iskusstvo-dizajn-korichnevyj_cvet-seryj_cvet-1920x1080.jpg');
+  background-size: cover;
+  background-position: center;
 }
+
+.header-main {
+  color: white;
+  font-size: 48px;
+  font-family: Arial, sans-serif;
+}
+
+.text-main-blacktheme{
+    color: white;
+    font-size: 35px;
+    font-family: Arial, sans-serif;
+}
+
+.reg-button-black {
+  background-color: rgba(255, 255, 255, 0.1);  /* слегка прозрачный белый фон */
+  color: white;
+  font-size: 22px;
+  font-family: Arial, sans-serif;
+  border: 2px solid white;
+  border-radius: 25px;
+  padding: 12px 40px;
+  margin-top: 30px;
+  cursor: pointer;
+
+  transition: all 0.3s ease;  /* плавные эффекты при наведении */
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.989);
+}
+
+.reg-button-black:hover {
+  background-color: white;
+  color: #2c2c2c;
+  box-shadow: 0px 0px 20px white;
+  transform: scale(1.05); /* лёгкое увеличение */
+}
+
+.reg-button-black:active {
+  transform: scale(0.98); /* эффект нажатия */
+}
+
+.login-text {
+  color: white;
+  font-size: 20px;
+  font-family: Arial, sans-serif;
+  margin-top: 15px;
+}
+
+.login-link {
+  color: white;
+  text-decoration: underline;  /* подчёркивание */
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.login-link:hover {
+  color: #b3b3b3;  /* лёгкое затемнение при наведении */
+}
+
+

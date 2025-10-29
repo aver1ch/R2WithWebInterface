@@ -1,6 +1,6 @@
 // src/router/routes.tsx
 import { RouteObject } from "react-router";
-import Login from '../pages/Login';
+import Login from '../pages/Welcome';
 import Register from '../pages/Register';
 
 export const routes: RouteObject[] = [
