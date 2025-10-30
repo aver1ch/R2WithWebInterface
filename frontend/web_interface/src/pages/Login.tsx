@@ -1,14 +1,14 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
-const Register = () => {
+const Login = () => {
   const navigate = useNavigate();
 
   return (
     <div className='background-main'>
       <div className="container">
         <div className="rectangle-black-reg fade-in">
-          <h1 className='header-main'>Registration</h1>
+          <h1 className='header-main'>Login</h1>
 
           {/* Поле логина */}
           <input 
@@ -26,7 +26,7 @@ const Register = () => {
 
           {/* Кнопки */}
           <div className="button-wrapper">
-            <button className="reg-button-black">Sign Up</button>
+            <button className="reg-button-black">Sign In</button>
             <button 
               className="reg-button-black back-button" 
               onClick={() => navigate('/')}
@@ -40,4 +40,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default Login
