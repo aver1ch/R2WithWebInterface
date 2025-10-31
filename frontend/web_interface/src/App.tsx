@@ -1,12 +1,15 @@
-import AppRouter from './components/AppRouter'
-import { BrowserRouter } from 'react-router-dom'
+import AppRouter from "./components/AppRouter";
+import { BrowserRouter } from "react-router-dom";
+import { ThemeProvider } from "./context/ThemeProvider";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <AppRouter />
+      <ThemeProvider defaultTheme="dark" storageKey="r2-ui-theme">
+        <AppRouter />
+      </ThemeProvider>
     </BrowserRouter>
-  )
-}
+  );
+};
 
-export default App
+export default App;

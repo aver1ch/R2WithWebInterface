@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import CustomButton from "../components/UI/CustomButton/CustomButton";
+import Title from "../components/UI/Title/Title";
 
-const MainPage: React.FC = () => {
+const MainPage = () => {
   const navigate = useNavigate();
-  const [fileName, setFileName] = useState<string>('');
+  const [fileName, setFileName] = useState<string>("");
 
   // Типизация события изменения инпута
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,36 +18,35 @@ const MainPage: React.FC = () => {
   return (
     <div className="background-main">
       <div className="container">
-        <div className="rectangle-black-reg fade-in">
-          <h1 className="header-logreg">Upload your CSV file</h1>
+        <div className="rectangle-reg fade-in">
+          <Title>Upload your CSV file</Title>
 
           <div className="upload-section fade-in fade-in-delay">
-            <input 
-              type="file" 
+            <input
+              type="file"
               accept=".csv"
               id="fileInput"
               className="file-input"
               onChange={handleFileUpload}
             />
-            <label htmlFor="fileInput" className="upload-button">
+            <label htmlFor="fileInput" className="upload-file">
               Choose File
             </label>
+            {fileName && <p className="file-name">📂 Selected: {fileName}</p>}
+            {fileName && (
+              <CustomButton onClick={() => navigate("/")}>
+                Process ⚙️
+              </CustomButton>
+            )}
           </div>
 
-          {fileName && <p className="file-name">📂 Selected: {fileName}</p>}
-
           <div className="button-wrapper">
-            <button 
-              className="reg-button-black back-button"
-              onClick={() => navigate('/')}
-            >
-              Logout
-            </button>
+            <CustomButton onClick={() => navigate("/")}>Logout ↩</CustomButton>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default MainPage;

@@ -1,48 +1,80 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import CustomButton from "../components/UI/CustomButton/CustomButton";
+import { CustomInput } from "../components/UI/CustomInput/CustomInput";
+import Title from "../components/UI/Title/Title";
+import { useTheme } from "../hooks/useTheme";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { theme } = useTheme();
+  const [visible, setVisible] = useState(false);
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
-    <div className='background-main'>
+    <div className="background-main">
       <div className="container">
-        <div className="rectangle-black-reg fade-in">
-          <h1 className='header-logreg'>Login</h1>
-
+        <div className="rectangle-reg fade-in">
+          <Title>Login</Title>
           {/* Поле логина */}
-          <input 
-            type="text" 
-            placeholder="Enter your login" 
-            className="input-field"
+          <CustomInput
+            type="text"
+            placeholder="Enter your login"
+            value={login}
+            onChange={(e) => setLogin(e.target.value)}
+            required
           />
-
           {/* Поле пароля */}
-          <input 
-            type="password" 
-            placeholder="Enter your password" 
-            className="input-field"
-          />
-
+          <div className="password-field">
+            <CustomInput
+              type={visible ? "text" : "password"}
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button
+              type="button"
+              style={{ border: "none" }}
+              onClick={() => setVisible(!visible)}
+            >
+              {theme === "light" ? (
+                <img 
+                  src={visible ? "/lighteye.svg" : "/lightclosedeye.svg"}
+                  alt="Show password"
+                  width="30"
+                  className="show-password"
+                />
+              ) : (
+                <img 
+                  src={visible ? "/darkeye.svg" : "/darkclosedeye.svg"}
+                  alt="Show password"
+                  width="30"
+                  className="show-password"
+                />
+              )}
+            </button>
+          </div>
           {/* Кнопки */}
           <div className="button-wrapper">
-            <button 
-              className="reg-button-black"
-              onClick={() => navigate('/MainPage')}
+            <CustomButton
+              className="reg-button"
+              onClick={() => navigate("/MainPage")}
             >
               Sign In
-            </button>
-            <button 
-              className="reg-button-black back-button" 
-              onClick={() => navigate('/')}
+            </CustomButton>
+            <CustomButton
+              className="reg-button back-button"
+              onClick={() => navigate("/")}
             >
               Back
-            </button>
+            </CustomButton>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

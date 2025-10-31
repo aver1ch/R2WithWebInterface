@@ -1,0 +1,17 @@
+.button {
+    background-color: black;
+    color: white;
+    border-radius: 25px;
+    border: var(--button-border);
+    height: 40px;
+    width: 100%;
+    max-width: 376px;
+    box-shadow: var(--button-shadow);
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 18px;
+  }
+  
+  .button:hover {
+    box-shadow: var(--button-shadow-hover);
+  }
