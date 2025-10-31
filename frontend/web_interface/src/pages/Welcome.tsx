@@ -14,16 +14,16 @@ const Welcome = () => {
             Upload a CSV file with your data — and get an optimal regression curve with calculated weights and visualized graphs, all available for download.
           </p>
           <div className="button-wrapper fade-in fade-in-delay" >
-   <button className="reg-button-black" onClick={() => navigate('/Register')}>Create an account</button>
-</div>
+          <button className="reg-button-black" onClick={() => navigate('/Register')}>Create an account</button>
+    </div>
 
            <p className="login-text fade-in fade-in-delay">
-            Уже существует?{' '}
+            Already exists?{' '}
             <span 
               className="login-link" 
               onClick={() => navigate('/Login')}
             >
-              Войти
+              Sign In
             </span>
           </p>
         </div>

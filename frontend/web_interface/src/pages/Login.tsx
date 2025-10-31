@@ -8,7 +8,7 @@ const Login = () => {
     <div className='background-main'>
       <div className="container">
         <div className="rectangle-black-reg fade-in">
-          <h1 className='header-main'>Login</h1>
+          <h1 className='header-logreg'>Login</h1>
 
           {/* Поле логина */}
           <input 
@@ -26,7 +26,12 @@ const Login = () => {
 
           {/* Кнопки */}
           <div className="button-wrapper">
-            <button className="reg-button-black">Sign In</button>
+            <button 
+              className="reg-button-black"
+              onClick={() => navigate('/MainPage')}
+            >
+              Sign In
+            </button>
             <button 
               className="reg-button-black back-button" 
               onClick={() => navigate('/')}
