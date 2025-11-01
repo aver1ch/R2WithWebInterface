@@ -1,0 +1,34 @@
+{
+    "welcome": {
+      "title": "Regression Model Fitting",
+      "description": "Upload a CSV file with your data — and get an optimal regression curve with calculated weights and visualized graphs, all available for download.",
+      "createAccount": "Create an account",
+      "alreadyExists": "Already exists? ",
+      "signIn": "Sign In"
+    },
+    "login": {
+      "title": "Login",
+      "loginPlaceholder": "Enter your login",
+      "passwordPlaceholder": "Enter your password",
+      "signIn": "Sign In",
+      "back": "Back",
+      "showPassword": "Show password"
+    },
+    "register": {
+      "title": "Sign up",
+      "loginPlaceholder": "Enter your login",
+      "passwordPlaceholder": "Enter your password",
+      "signIn": "Sign In",
+      "back": "Back",
+      "showPassword": "Show password",
+      "processing": "Processing"
+    },
+    "mainPage": {
+      "title": "Upload your CSV file",
+      "chooseFile": "Choose File",
+      "selected": "Selected",
+      "process": "Process ⚙️",
+      "logout": "Logout ↩",
+      "invalidFileType": "Invalid file type, choose CSV"
+    }
+  }

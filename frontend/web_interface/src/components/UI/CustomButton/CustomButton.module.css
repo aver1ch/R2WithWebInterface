@@ -10,6 +10,7 @@
     cursor: pointer;
     transition: 0.2s;
     font-size: 18px;
+    padding: 10px;
   }
   
   .button:hover {
