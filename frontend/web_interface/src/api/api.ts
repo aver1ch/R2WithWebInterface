@@ -19,7 +19,7 @@ export interface RegisterData {
     message?: string;
   }
 
-export const uploadCSVFile = async (file: File) => {
+export const uploadCSVFile = async (file: File) => { // Выход на бэк для загрузки файла
     const formData = new FormData();
     formData.append('file', file);
 
@@ -44,7 +44,7 @@ export const uploadCSVFile = async (file: File) => {
     return response.json();
 }
 
-export const registerUser = async (data: RegisterData): Promise<AuthResponse> => {
+export const registerUser = async (data: RegisterData): Promise<AuthResponse> => { // Выход на бэк для регистрации
     const response = await fetch(`${API_BASE_URL}/api/register`, {
       method: 'POST',
       headers: {
@@ -62,7 +62,7 @@ export const registerUser = async (data: RegisterData): Promise<AuthResponse> =>
   };
   
   // Авторизация
-  export const loginUser = async (data: LoginData): Promise<AuthResponse> => {
+  export const loginUser = async (data: LoginData): Promise<AuthResponse> => { // Выход на бэк для логина
     const response = await fetch(`${API_BASE_URL}/api/login`, {
       method: 'POST',
       headers: {
