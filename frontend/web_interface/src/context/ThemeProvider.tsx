@@ -33,7 +33,7 @@ export const ThemeProvider = ({
     // Устанавливаем CSS переменные в зависимости от темы
     if (activeTheme === "dark") {
       root.style.setProperty("--bg-primary", "#1a1a1a");
-      root.style.setProperty("--bg-secondary", "rgba(44, 44, 44, 0.4)");
+      root.style.setProperty("--bg-secondary", "rgba(0, 0, 0, 0.8)");
       root.style.setProperty("--bg-card", "rgba(0, 0, 0, 0.76)");
       root.style.setProperty("--text-primary", "#ffffff");
       root.style.setProperty("--text-secondary", "#e0e0e0");
