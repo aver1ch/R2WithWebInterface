@@ -9,11 +9,11 @@
     box-shadow: var(--button-shadow);
     cursor: pointer;
     transition: 0.2s;
-    font-size: 18px;
-    padding: 10px;
+    font-size: 17px;
+    padding: 0 12px;
     font-weight: 500;
   }
-  
+
   .button:hover {
     box-shadow: var(--button-shadow-hover);
   }
