@@ -1,5 +1,5 @@
 package models
 
 type UploadParameters struct {
-	Parameter int `json:"parameter"`
+	Parameter int `bson:"parameter"`
 }

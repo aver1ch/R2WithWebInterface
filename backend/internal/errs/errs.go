@@ -3,5 +3,7 @@ package errs
 import "errors"
 
 var (
-	ErrInvalidCredentials = errors.New("invalid credentials")
+	ErrUnkownPassword     = errors.New("password not found")
+	ErrUnkownUser         = errors.New("user not found")
+	ErrInvalidCredentials = errors.New("credentials is invalid")
 )

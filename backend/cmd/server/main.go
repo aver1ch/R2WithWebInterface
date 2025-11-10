@@ -8,12 +8,14 @@ import (
 
 	"server/internal/db"
 	"server/internal/handlers"
+	"server/internal/repository"
+	"server/internal/services"
 )
 
 func main() {
 	slog.Info("Server starts\n Initialization of database")
 	client := db.ConnectMongo("mongodb://localhost:27017")
-	db := client.Database("myapp") // создастся автоматически
+	db := client.Database("R2")
 
 	distDir := "../frontend/dist"
 	fs := http.FileServer(http.Dir(distDir))
@@ -28,8 +30,16 @@ func main() {
 		fs.ServeHTTP(w, r)
 	})
 
-	http.HandleFunc("/api/login", handlers.LoginHandler)
-	http.HandleFunc("/api/register", handlers.RegistrationHandler)
+	userRepo := repository.NewUserRepository(db.Collection("users"))
+
+	regService := services.NewRegService(userRepo)
+	authService := services.NewAuthService(userRepo)
+
+	regHandler := handlers.NewRegHandler(regService)
+	authHandler := handlers.NewAuthHandler(authService)
+
+	http.HandleFunc("/api/login", authHandler.LoginHandler)
+	http.HandleFunc("/api/register", regHandler.RegistrationHandler)
 
 	http.ListenAndServe(":8080", nil)
 }
