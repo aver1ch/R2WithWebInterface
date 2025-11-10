@@ -31,7 +31,7 @@ const Register = () => {
 
     setIsLoading(true);
     setError(null);
-    navigate("/MainPage"); // TODO убрать навигацию после того как бэк доделает авторизацию, сделано для теста страницы обработки
+    //navigate("/MainPage"); // TODO убрать навигацию после того как бэк доделает авторизацию, сделано для теста страницы обработки
 
     try {
       const result = await registerUser({ login, password });

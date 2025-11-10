@@ -17,6 +17,7 @@ export interface RegisterData {
       login: string;
     };
     message?: string;
+    isAuth: boolean;
   }
 
 export const uploadCSVFile = async (file: File, parameter?: number) => { // Выход на бэк для отправки файла и параметра R2

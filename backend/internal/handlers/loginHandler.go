@@ -18,14 +18,14 @@ func NewAuthHandler(service *services.AuthService) *AuthHandler {
 
 func (h *AuthHandler) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
-	slog.Debug("Check is request is POST in LoginHandler function")
+	slog.Info("Check is request is POST in LoginHandler function")
 	if r.Method != http.MethodPost {
 		http.Error(w, "Only POST allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
 	var credentials models.LoginRequest
-	slog.Debug("Pull login and password from request in LoginHandler function")
+	slog.Info("Pull login and password from request in LoginHandler function")
 	if err = json.NewDecoder(r.Body).Decode(&credentials); err != nil {
 		http.Error(w, "invalid json", http.StatusBadRequest)
 		return
@@ -35,10 +35,10 @@ func (h *AuthHandler) LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 	slog.Info("Login and password is valid")
 
-	slog.Debug("Cooking response")
+	slog.Info("Cooking response")
 	response := map[string]bool{"isAuth": isSuccess}
 
-	slog.Debug("Sending response")
+	slog.Info("Sending response")
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(response)
 
