@@ -2,6 +2,9 @@
 Класс `Regression` выполняет множественную линейную регрессию. 
 Первый столбец CSV - целевая переменная, остальные - признаки.
 
+Чтобы запустить main.py: python main.py <путь к файлу> <значение R2>
+
+
 ```python
 from regression_service import Regression
 
