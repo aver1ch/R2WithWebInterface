@@ -131,7 +131,7 @@ const MainPage = () => {
               onChange={(e) => {
                 setParameter(e.target.value);
               }}
-              style={{ maxWidth: '465px', marginBottom: '25px', height: '70px', textAlign: 'left' }}
+              style={{ width:"100%", marginBottom: '25px', height: '70px', textAlign: 'left' }}
             />}
             <datalist id="values">
               <option>0.7</option>

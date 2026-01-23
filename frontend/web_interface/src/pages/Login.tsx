@@ -53,6 +53,7 @@ const Login = () => {
           <Title
             style={{
               fontWeight: "300",
+              fontSize: "45px",
               color: theme === "dark" ? "#fff" : "#000",
             }}
           >

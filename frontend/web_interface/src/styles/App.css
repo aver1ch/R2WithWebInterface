@@ -37,8 +37,8 @@
 
 .rectangle-reg,
 .rectangle-processing {
-  min-height: 574px;
-  width: 586px;
+  min-height: 480px;
+  width: 450px;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
