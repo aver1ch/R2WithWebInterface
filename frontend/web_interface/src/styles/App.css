@@ -360,6 +360,56 @@
   z-index: 1000;
 }
 
+.rectangle-result {
+  width: 100%;
+  max-width: 900px;
+  padding: 40px 30px;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.result-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.result-plot {
+  width: 100%;
+  max-width: 540px;
+  border-radius: 8px;
+  background: white;
+}
+
+.result-formula {
+  margin-top: 18px;
+  font-size: 28px;
+  font-weight: 500;
+  color: white;
+  align-self: flex-start;
+  max-width: 540px;
+  width: 100%;
+}
+
+.result-buttons {
+  margin-top: 24px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+}
+
+.sidebar-icon-top {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 1001;
+}
+
+
 @keyframes fadeInUp {
   to {
     opacity: 1;

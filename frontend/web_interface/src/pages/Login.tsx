@@ -69,7 +69,7 @@ const Login = () => {
               }}
               required
               disabled={isLoading}
-              className={theme === 'light' ? 'light' : ''}
+              className={theme === 'light' ? 'light' : 'dark'}
 
             />
             <div className="password-field">

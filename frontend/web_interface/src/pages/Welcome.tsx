@@ -24,50 +24,50 @@ const Welcome = () => {
   return (
     <div className="background-main">
       <div className="container">
-          <div className="welcome-left">
-            <Title className="welcome-title fade-in fade-in-delay">
-              {t("welcome.title")}
-            </Title>
-            <CustomButton
-              className="welcome-button fade-in fade-in-delay"
-              onClick={() => navigate("/Register")}
-              style={{ minHeight: "85px", fontSize: '40px', maxHeight: '150px', height: '100%' }}
-            >
-              {t("welcome.createAccount")}
-            </CustomButton>
-            <p className="login-text fade-in fade-in-delay">
-              {t("welcome.alreadyExists")}{" "}
-              <span className="login-link" onClick={() => navigate("/Login")}>
-                {t("welcome.signIn")}
-              </span>
-            </p>
-          </div>
-          <div className="welcome-right fade-in fade-in-delay">
-            <p className="text-main">{t("welcome.description")}</p>
-          </div>
+        <div className="welcome-left">
+          <Title className="welcome-title fade-in fade-in-delay">
+            {t("welcome.title")}
+          </Title>
+          <CustomButton
+            className="welcome-button fade-in fade-in-delay"
+            onClick={() => navigate("/Register")}
+            style={{ minHeight: "85px", fontSize: '40px', maxHeight: '150px', height: '100%' }}
+          >
+            {t("welcome.createAccount")}
+          </CustomButton>
+          <p className="login-text fade-in fade-in-delay">
+            {t("welcome.alreadyExists")}{" "}
+            <span className="login-link" onClick={() => navigate("/Login")}>
+              {t("welcome.signIn")}
+            </span>
+          </p>
+        </div>
+        <div className="welcome-right fade-in fade-in-delay">
+          <p className="text-main">{t("welcome.description")}</p>
+        </div>
 
-          <div className="corner-controls fade-in fade-in-delay">
-            <button
-              className="corner-button"
-              onClick={toggleTheme}
-              aria-label="Toggle theme"
-              type="button"
-            >
-              <img
-                src={theme === "dark" ? "/lighttheme.svg" : "/sun.png"}
-                alt="Theme"
-                className="corner-icon"
-              />
-            </button>
-            <button
-              className="corner-label-button"
-              onClick={toggleLanguage}
-              aria-label="Toggle language"
-              type="button"
-            >
-              {i18n.language === "en" ? "EN" : "RU"}
-            </button>
-          </div>
+        <div className="corner-controls fade-in fade-in-delay">
+          <button
+            className="corner-button"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            type="button"
+          >
+            <img
+              src={theme === "dark" ? "/lighttheme.svg" : "/sun.png"}
+              alt="Theme"
+              className="corner-icon"
+            />
+          </button>
+          <button
+            className="corner-label-button"
+            onClick={toggleLanguage}
+            aria-label="Toggle language"
+            type="button"
+          >
+            {i18n.language === "en" ? "EN" : "RU"}
+          </button>
+        </div>
       </div>
     </div>
   );

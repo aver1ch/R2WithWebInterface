@@ -39,5 +39,12 @@
       "faqTitle": "Важно!",
       "historyTitle": "История результатов",
       "parameterError": "Параметр должен быть больше 0 и меньше 1"
+    },
+    "resultPage": {
+      "title": "РЕЗУЛЬТАТЫ",
+      "download": "Скачать ⬇",
+      "exit": "Выйти ↩",
+      "historyTitle": "История результатов",
+      "formulaLabel": "Формула"
     }
   }

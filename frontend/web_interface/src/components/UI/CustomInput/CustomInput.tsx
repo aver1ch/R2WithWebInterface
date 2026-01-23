@@ -5,7 +5,7 @@ import cn from "classnames";
 type CustomInputProps = InputHTMLAttributes<HTMLInputElement>;
 
 export const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
-  (props: any, ref) => {
-    return <input ref={ref} {...props} className={cn(styles.input, props.className)} />;
+  ({ className, ...rest }, ref) => {
+    return <input ref={ref} {...rest} className={cn(styles.input, className)} />;
   }
 );

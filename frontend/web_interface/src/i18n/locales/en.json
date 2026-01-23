@@ -39,5 +39,12 @@
       "faqTitle": "Important!",
       "historyTitle": "History of results",
       "parameterError": "Parameter must be more than 0 and less than 1"
+    },
+    "resultPage": {
+      "title": "Results",
+      "download": "Download ⬇",
+      "exit": "Exit ↩",
+      "historyTitle": "History of results",
+      "formulaLabel": "Formula"
     }
   }

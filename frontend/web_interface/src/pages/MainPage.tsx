@@ -1,23 +1,23 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../components/UI/CustomButton/CustomButton";
 import Title from "../components/UI/Title/Title";
 import { useTranslation } from "react-i18next";
-import { uploadCSVFile } from "../api/api";
 import { useDropzone } from "react-dropzone";
 import { CustomInput } from "../components/UI/CustomInput/CustomInput";
+import Sidebar from "./Sidebar";
+import { useTheme } from "../hooks/useTheme";
 
 const MainPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-
+  const { theme } = useTheme();
   const [file, setFile] = useState<File | null>(null);
   const [fileName, setFileName] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [parameter, setParameter] = useState<string | number>("");
   const [error, setError] = useState<string | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
-
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
@@ -76,23 +76,13 @@ const MainPage = () => {
   };
   return (
     <div className="background-main">
-      <div className={`sidebar ${isSidebarOpen ? 'sidebar-open' : ''}`}>
-        <div className="sidebar-header">
-          <h2 className='sidebar-header-title'>{t("mainPage.historyTitle")}</h2>
-        </div>
-        <div className="sidebar-content">
-          <div className="history-item">file1.csv</div>
-          <div className="history-item">file2.csv</div>
-          <div className="history-item">file3.csv</div>
-        </div>
-      </div>
+      <Sidebar
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+        title={t("mainPage.historyTitle")}
+        items={["file1.csv", "file2.csv", "file3.csv"]}
+      />
 
-      {isSidebarOpen && (
-        <div
-          className="sidebar-overlay"
-          onClick={() => setIsSidebarOpen(false)}
-        />
-      )}
       <div className="container">
         <div className="rectangle-processing fade-in">
           <div className="title-processing-wrapper">
@@ -136,7 +126,7 @@ const MainPage = () => {
               type="text"
               list="values"
               placeholder={t("mainPage.enterParameter")}
-              className='parameter'
+              className="parameter"
               value={parameter}
               onChange={(e) => {
                 setParameter(e.target.value);

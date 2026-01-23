@@ -12,7 +12,7 @@ const Register = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const [visible, setVisible] = useState(false);
-  const [login, setLogin] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -20,7 +20,7 @@ const Register = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!login.trim()) {
+    if (!email.trim()) {
       setError("Пожалуйста, введите логин");
       return;
     }
@@ -34,7 +34,7 @@ const Register = () => {
     navigate("/MainPage"); // TODO убрать навигацию после того как бэк доделает авторизацию, сделано для теста страницы обработки
 
     try {
-      const result = await registerUser({ login, password });
+      const result = await registerUser({ email, password });
 
       if (result.token) {
         localStorage.setItem("authToken", result.token);
@@ -68,13 +68,14 @@ const Register = () => {
             <CustomInput
               type="text"
               placeholder={t("register.loginPlaceholder")}
-              value={login}
+              value={email}
               onChange={(e) => {
-                setLogin(e.target.value);
+                setEmail(e.target.value);
                 setError(null);
               }}
               required
               disabled={isLoading}
+              className={theme === 'light' ? 'light' : 'dark'}
             />
             <div className="password-field">
               <CustomInput
@@ -87,6 +88,7 @@ const Register = () => {
                 }}
                 required
                 disabled={isLoading}
+                className={theme === 'light' ? 'light' : 'dark'}
               />
               <button
                 type="button"
@@ -125,6 +127,7 @@ const Register = () => {
                 type="submit"
                 disabled={isLoading}
                 style={{ fontWeight: 700, maxWidth: '361px', backgroundColor: theme === 'dark' ? "#fff" : "#005ADD", color: theme === 'dark' ? "#000" : "#fff" }}
+
               >
                 {isLoading
                   ? t("register.processing") || "Processing..."
