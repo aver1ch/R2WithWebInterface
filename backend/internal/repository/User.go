@@ -1,30 +1,30 @@
 package repository
 
 import (
-	"context"
 	"server/internal/models"
 
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
+	"gorm.io/gorm"
 )
 
 type UserRepository struct {
-	db *mongo.Collection
+	db *gorm.DB
 }
 
-func NewUserRepository(db *mongo.Collection) *UserRepository {
+func NewUserRepository(db *gorm.DB) *UserRepository {
 	return &UserRepository{
 		db: db,
 	}
 }
 
-func (r *UserRepository) FindByLogin(login string) (*models.User, error) {
+func (r *UserRepository) FindByEmail(email string) (*models.User, error) {
 	var user models.User
-	err := r.db.FindOne(context.TODO(), bson.M{"login": login}).Decode(&user)
-	return &user, err
+	err := r.db.Where("email = ?", email).First(&user).Error
+	if err != nil {
+		return nil, err
+	}
+	return &user, nil
 }
 
 func (r *UserRepository) Create(user *models.User) error {
-	_, err := r.db.InsertOne(context.TODO(), user)
-	return err
+	return r.db.Create(user).Error
 }
