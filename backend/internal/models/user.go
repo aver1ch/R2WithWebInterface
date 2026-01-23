@@ -1,10 +1,16 @@
 package models
 
+import "gorm.io/gorm"
+
 type User struct {
-	Login    string `bson:"id"`
-	Password string `bson:"login"`
+	gorm.Model
+	Email        string `gorm:"uniqueIndex;size:255" json:"email"`
+	PasswordHash string `gorm:"size:255" json:"-"`
 }
 
-func NewUser(login string, password string) *User {
-	return &User{Login: login, Password: password}
+func NewUser(email, passwordHash string) *User {
+	return &User{
+		Email:        email,
+		PasswordHash: passwordHash,
+	}
 }

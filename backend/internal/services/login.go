@@ -1,9 +1,10 @@
 package services
 
 import (
-	"server/internal/errs"
+	"errors"
 	"server/internal/models"
 	"server/internal/repository"
+	"server/internal/utils"
 )
 
 type AuthService struct {
@@ -16,19 +17,20 @@ func NewAuthService(u *repository.UserRepository) *AuthService {
 	}
 }
 
-func (s *AuthService) Login(req models.LoginRequest) (bool, error) {
-	user, err := s.repo.FindByLogin(req.Login)
+func (s *AuthService) Login(req models.LoginRequest) (string, error) {
+	user, err := s.repo.FindByEmail(req.Email)
 	if err != nil {
-		return false, errs.ErrUnkownUser
+		return "", errors.New("user not found")
 	}
 
-	if !checkPassword(user.Password, req.Password) {
-		return false, errs.ErrUnkownPassword
+	if !utils.CheckPassword(req.Password, user.PasswordHash) {
+		return "", errors.New("invalid password")
 	}
 
-	return true, nil
-}
+	token, err := utils.GenerateToken(int64(user.ID), user.Email)
+	if err != nil {
+		return "", err
+	}
 
-func checkPassword(password string, login string) bool {
-	return password == login
+	return token, nil
 }

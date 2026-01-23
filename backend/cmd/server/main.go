@@ -1,52 +1,82 @@
 package main
 
 import (
-	"log/slog"
+	"flag"
+	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"path/filepath"
 
 	"server/internal/db"
 	"server/internal/handlers"
+	"server/internal/middleware"
+	"server/internal/models"
 	"server/internal/repository"
 	"server/internal/services"
 )
 
 func main() {
-	slog.Info("Server starts\n Initialization of database")
-	client := db.ConnectMongo("mongodb://localhost:27017")
-	db := client.Database("R2")
+	// CLI flags
+	host := flag.String("host", "localhost", "Server host")
+	port := flag.Int("port", 8080, "Server port")
+	dbHost := flag.String("db-host", "localhost", "Database host")
+	dbPort := flag.Int("db-port", 5432, "Database port")
+	dbUser := flag.String("db-user", "user", "Database user")
+	dbPassword := flag.String("db-password", "password", "Database password")
+	dbName := flag.String("db-name", "app", "Database name")
+	pythonPath := flag.String("python-path", "regression", "Path to Python scripts directory")
 
-	distDir := "../frontend/web_interface/build"
-	fs := http.FileServer(http.Dir(distDir))
+	flag.Parse()
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		path := filepath.Join(distDir, r.URL.Path)
-		_, err := os.Stat(path)
-		if os.IsNotExist(err) {
-			http.ServeFile(w, r, filepath.Join(distDir, "index.html"))
-			return
-		}
-		fs.ServeHTTP(w, r)
-	})
-	slog.Info("Initialization of repositories")
-	userRepo := repository.NewUserRepository(db.Collection("users"))
-	slog.Info("Collection users is created")
+	// Set environment variables for database
+	os.Setenv("DB_HOST", *dbHost)
+	os.Setenv("DB_PORT", fmt.Sprintf("%d", *dbPort))
+	os.Setenv("DB_USER", *dbUser)
+	os.Setenv("DB_PASSWORD", *dbPassword)
+	os.Setenv("DB_NAME", *dbName)
 
-	slog.Info("Initialization of services")
+	// Connect to database
+	db, err := db.ConnectDB()
+	if err != nil {
+		log.Fatalf("Failed to connect to database: %v", err)
+	}
+
+	// Auto-migrate database
+	if err := db.AutoMigrate(&models.User{}); err != nil {
+		log.Fatalf("Failed to migrate database: %v", err)
+	}
+
+	// Initialize repositories
+	userRepo := repository.NewUserRepository(db)
+
+	// Initialize services
 	regService := services.NewRegService(userRepo)
 	authService := services.NewAuthService(userRepo)
-	slog.Info("Initialization of services successful")
 
-	slog.Info("Initialization of handlers")
+	// Initialize handlers
 	regHandler := handlers.NewRegHandler(regService)
 	authHandler := handlers.NewAuthHandler(authService)
-	slog.Info("Initialization of handlers successful")
 
-	slog.Info("Initialization of routes")
-	http.HandleFunc("/api/login", authHandler.LoginHandler)
-	http.HandleFunc("/api/register", regHandler.RegistrationHandler)
-	slog.Info("Initialization of routes successful")
+	// Get absolute path to python scripts
+	absPythonPath, err := filepath.Abs(*pythonPath)
+	if err != nil {
+		log.Fatalf("Failed to get absolute path for python scripts: %v", err)
+	}
 
-	http.ListenAndServe(":8080", nil)
+	runHandler := handlers.NewRunHandler(absPythonPath)
+
+	// Routes
+	http.HandleFunc("/register", regHandler.RegistrationHandler)
+	http.HandleFunc("/login", authHandler.LoginHandler)
+
+	// Protected routes
+	http.Handle("/run", middleware.AuthMiddleware(http.HandlerFunc(runHandler.RunHandler)))
+	http.Handle("/run/csv", middleware.AuthMiddleware(http.HandlerFunc(runHandler.DownloadCSV)))
+	http.Handle("/run/image", middleware.AuthMiddleware(http.HandlerFunc(runHandler.DownloadImage)))
+
+	// Start server
+	addr := fmt.Sprintf("%s:%d", *host, *port)
+	log.Printf("Server starting on %s", addr)
+	log.Fatal(http.ListenAndServe(addr, nil))
 }

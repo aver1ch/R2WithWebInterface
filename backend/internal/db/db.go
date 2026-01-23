@@ -1,29 +1,63 @@
 package db
 
 import (
-	"context"
-	"log"
-	"log/slog"
-	"time"
+	"fmt"
+	"os"
 
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
-func ConnectMongo(uri string) *mongo.Client {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-	slog.Info("Try to connect to mongo")
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI(uri))
+type Config struct {
+	Host     string
+	Port     int
+	User     string
+	Password string
+	DBName   string
+	SSLMode  string
+}
+
+func LoadConfig() Config {
+	host := getEnv("DB_HOST", "localhost")
+	port := 5432
+	user := getEnv("DB_USER", "user")
+	password := getEnv("DB_PASSWORD", "password")
+	dbname := getEnv("DB_NAME", "app")
+	sslmode := getEnv("DB_SSLMODE", "disable")
+
+	return Config{
+		Host:     host,
+		Port:     port,
+		User:     user,
+		Password: password,
+		DBName:   dbname,
+		SSLMode:  sslmode,
+	}
+}
+
+func getEnv(key, defaultValue string) string {
+	if value, exists := os.LookupEnv(key); exists {
+		return value
+	}
+	return defaultValue
+}
+
+func ConnectDB() (*gorm.DB, error) {
+	config := LoadConfig()
+
+	dsn := fmt.Sprintf(
+		"host=%s port=%d user=%s password=%s dbname=%s sslmode=%s",
+		config.Host, config.Port, config.User, config.Password, config.DBName, config.SSLMode,
+	)
+
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Info),
+	})
+
 	if err != nil {
-		log.Fatalf("Mongo connection error: %v", err)
+		return nil, fmt.Errorf("failed to connect to database: %w", err)
 	}
 
-	slog.Info("Check the connection")
-	if err := client.Ping(ctx, nil); err != nil {
-		log.Fatalf("Mongo ping error: %v", err)
-	}
-
-	slog.Info("Connected to MongoDB")
-	return client
+	return db, nil
 }
