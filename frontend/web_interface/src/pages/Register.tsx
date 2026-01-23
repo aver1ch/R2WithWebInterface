@@ -59,6 +59,7 @@ const Register = () => {
           <Title
             style={{
               fontWeight: "300",
+              fontSize: '45px',
               color: theme === "dark" ? "#fff" : "#000",
             }}
           >
@@ -126,7 +127,7 @@ const Register = () => {
                 className="reg-button"
                 type="submit"
                 disabled={isLoading}
-                style={{ fontWeight: 700, maxWidth: '361px', backgroundColor: theme === 'dark' ? "#fff" : "#005ADD", color: theme === 'dark' ? "#000" : "#fff" }}
+                style={{ fontWeight: 700, fontSize: '20px', maxWidth: '361px', backgroundColor: theme === 'dark' ? "#fff" : "#005ADD", color: theme === 'dark' ? "#000" : "#fff" }}
 
               >
                 {isLoading
@@ -135,7 +136,7 @@ const Register = () => {
               </CustomButton>
               <CustomButton
                 onClick={() => navigate("/Welcome")}
-                style={{ maxWidth: '361px', backgroundColor: theme === 'dark' ? '#fff' : 'rgba(0, 0, 0, 0.1)', fontWeight: 500 }}
+                style={{ maxWidth: '361px', backgroundColor: theme === 'dark' ? '#fff' : 'rgba(0, 0, 0, 0.1)', fontWeight: 400 }}
 
               >
                 {t("register.back")}
