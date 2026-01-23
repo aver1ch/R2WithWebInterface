@@ -76,7 +76,7 @@ export const ThemeProvider = ({
       );
       root.style.setProperty(
         "--button-shadow-hover",
-        "0px 5px 6px 0px rgba(255, 255, 255, 0.6)"
+        "0px 5px 6px 0px rgba(255, 255, 255, 0.3)"
       );
       root.style.setProperty("--button-border", "none");
     }

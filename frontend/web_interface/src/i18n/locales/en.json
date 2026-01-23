@@ -16,10 +16,10 @@
       "processing": "Processing..."
     },
     "register": {
-      "title": "Sign up",
+      "title": "Sign Up",
       "loginPlaceholder": "Enter your login",
       "passwordPlaceholder": "Enter your password",
-      "signIn": "Sign In",
+      "signIn": "Sign Up",
       "back": "Back",
       "showPassword": "Show password",
       "processing": "Processing..."

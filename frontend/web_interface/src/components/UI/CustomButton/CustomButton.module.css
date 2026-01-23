@@ -1,19 +1,20 @@
 .button {
-    border: none;
-    background-color: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
-    border-radius: 25px;
-    min-height: 57px;
-    width: 100%;
-    max-width: 698px;
-    cursor: pointer;
-    transition: 0.2s;
-    font-size: 25px;
-    padding: 10px;
-    font-weight: 300;
-    text-transform: uppercase;
-  }
-  
+  border: none;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  border-radius: 25px;
+  min-height: 57px;
+  width: 100%;
+  max-width: 698px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 25px;
+  padding: 10px;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
 .button:hover {
+  transform: scale(1.02);
   box-shadow: var(--button-shadow-hover);
 }
