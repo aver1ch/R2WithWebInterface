@@ -8,12 +8,12 @@
 }
 
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: auto;
   height: 100dvh;
+  display: flex;
+  justify-content: center;   /* по горизонтали */
+  align-items: center;       /* по вертикали */
 }
 
 /* Анимация появления с лёгким смещением вверх */
@@ -29,14 +29,10 @@
 
 .rectangle {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  align-items: flex-start; /* текст сверху */
+  justify-content: center; /* центр по горизонтали */
+  gap: 60px;
   max-width: 1120px;
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  padding: 0;
 }
 
 .rectangle-reg,
@@ -62,17 +58,15 @@
 
 .welcome-left {
   width: 720px;
-  display: flex;
-  flex-direction: column;
 }
 
 .welcome-right {
   max-width: 641px;
   color: var(--text-primary);
   font-size: 36px;
-  line-height: 1;
   margin-left: 62px;
 }
+
 
 .background-main {
   background: var(--background-gradient);
@@ -87,9 +81,10 @@
   justify-content: center;
   align-items: center;
 }
-.text-main {
+.text-main {    
   color: var(--text-primary);
-  font-size: 36px;
+  max-width: 440px;
+  font-size: 24px;
   line-height: 1.5;
   margin-bottom: 32px;
 }
