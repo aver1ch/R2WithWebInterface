@@ -25,7 +25,7 @@ const Welcome = () => {
     <div className="background-main">
       <div className="container">
         <div className="welcome-left">
-          <Title className="welcome-title fade-in fade-in-delay" style={i18n.language === "en" ? { fontSize: "96px" } : { fontSize: '60px' }}>
+          <Title className="welcome-title fade-in fade-in-delay" style={i18n.language === "en" ? { fontSize: "80px" } : { fontSize: '50px' }}>
             {t("welcome.title")}
           </Title>
           <CustomButton
@@ -43,7 +43,7 @@ const Welcome = () => {
           </p>
         </div>
         <div className="welcome-right fade-in fade-in-delay">
-          <p className="text-main" style={i18n.language === "en" ? { fontSize: "40px" } : { fontSize: '36px' }}>{t("welcome.description")}</p>
+          <p className="text-main" style={i18n.language === "en" ? { fontSize: "40px" } : { fontSize: '34.5px' }}>{t("welcome.description")}</p>
         </div>
 
         <div className="corner-controls fade-in fade-in-delay">

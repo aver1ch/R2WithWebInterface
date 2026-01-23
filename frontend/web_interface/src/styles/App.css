@@ -11,8 +11,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
   height: 100dvh;
-  padding: 0 80px;
 }
 
 /* Анимация появления с лёгким смещением вверх */
@@ -110,12 +111,8 @@
   text-decoration: underline;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.3s ease;
 }
 
-.login-link:hover {
-  color: var(--text-link);
-}
 
 .welcome-button {
   background-color: #ffffff;
