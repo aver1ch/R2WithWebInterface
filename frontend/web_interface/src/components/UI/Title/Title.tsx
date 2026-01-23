@@ -4,11 +4,12 @@ import cn from "classnames";
 
 interface TitleProps {
   children: React.ReactNode;
+  style?: React.CSSProperties;
   className?: string;
 }
 
-const Title = ({ children, className, ...props }: TitleProps) => {
-  return <h1 className={cn(styles.title, className)}>{children}</h1>;
+const Title = ({ children, className, style, ...props }: TitleProps) => {
+  return <h1 className={cn(styles.title, className)} style={style}>{children}</h1>;
 };
 
 export default Title;

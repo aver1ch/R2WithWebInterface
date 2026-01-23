@@ -6,9 +6,9 @@ interface CustomButtonProps
   children: React.ReactNode;
 }
 
-const CustomButton = ({ children, className, ...props }: CustomButtonProps) => {
+const CustomButton = ({ children, className, style, ...props }: CustomButtonProps) => {
   return (
-    <button {...props} className={cn(styles.button, className)}>
+    <button {...props} className={cn(styles.button, className)} style={style}>
       {children}
     </button>
   );

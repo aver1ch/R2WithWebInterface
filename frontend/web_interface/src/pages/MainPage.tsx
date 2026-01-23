@@ -5,6 +5,7 @@ import Title from "../components/UI/Title/Title";
 import { useTranslation } from "react-i18next";
 import { uploadCSVFile } from "../api/api";
 import { useDropzone } from "react-dropzone";
+import { CustomInput } from "../components/UI/CustomInput/CustomInput";
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -13,75 +14,114 @@ const MainPage = () => {
   const [file, setFile] = useState<File | null>(null);
   const [fileName, setFileName] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [parameter, setParameter] = useState<string>("");
+  const [parameter, setParameter] = useState<string | number>("");
   const [error, setError] = useState<string | null>(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       const selectedFile = acceptedFiles[0];
       if (selectedFile) {
-        if (!selectedFile.name.endsWith(".csv")) {
-          setError(t("mainPage.invalidFileType") || "Please select a CSV file");
-          setFile(null);
-          setFileName("");
-          return;
-        }
-
         setFileName(selectedFile.name);
         setFile(selectedFile);
         setError(null);
       }
     },
+    []
+  );
+
+  const onDropRejected = useCallback(
+    (fileRejections: any[]) => {
+      setError(t("mainPage.invalidFileType"));
+      setFile(null);
+      setFileName("");
+    },
     [t]
   );
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
+    onDropRejected,
     accept: { "text/csv": [".csv"] },
     multiple: false,
     maxFiles: 1,
+    onDragEnter: undefined,
+    onDragOver: undefined,
+    onDragLeave: undefined
   });
 
-  console.log(file);
-
   const handleProcess = async () => {
+    setIsLoading(false)
+    console.log(error)
     if (!file) return;
-    if (!parameter) {
+
+    const value = Number(parameter)
+
+    if (!Number.isFinite(value) || value < 0 || value > 1) {
       setError(t("mainPage.parameterError"));
       return;
     }
-    setIsLoading(true);
     setError(null);
+    setIsLoading(true);
+    // try {
+    //   const result = await uploadCSVFile(file, Number(parameter));
 
-    try {
-      const result = await uploadCSVFile(file, Number(parameter));
-
-      console.log("result:", result);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "File upload error");
-      console.error("Upload error:", e);
-    } finally {
-      setIsLoading(false);
-    }
+    // } catch (e) {
+    //   setError(e instanceof Error ? e.message : "File upload error");
+    //   console.error("Upload error:", e);
+    // } finally {
+    //   setIsLoading(false);
+    // }
   };
-
   return (
     <div className="background-main">
+      <div className={`sidebar ${isSidebarOpen ? 'sidebar-open' : ''}`}>
+        <div className="sidebar-header">
+          <h2 className='sidebar-header-title'>{t("mainPage.historyTitle")}</h2>
+        </div>
+        <div className="sidebar-content">
+          <div className="history-item">file1.csv</div>
+          <div className="history-item">file2.csv</div>
+          <div className="history-item">file3.csv</div>
+        </div>
+      </div>
+
+      {isSidebarOpen && (
+        <div
+          className="sidebar-overlay"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
       <div className="container">
-        <div className="rectangle-reg fade-in">
-          <Title className="fade-in fade-in-delay">{t("mainPage.title")}</Title>
+        <div className="rectangle-processing fade-in">
+          <div className="title-processing-wrapper">
+            <Title className="fade-in fade-in-delay" style={{ fontSize: '47px', fontWeight: '500', marginBottom: '7px' }}>{t("mainPage.title")}</Title>
+            <div className="faq fade-in fade-in-delay">
+              <img src="/faq.png" alt="FAQ" className="faq-icon" />
+              <div className="faq-popover">
+                <div className="faq-title">{t("mainPage.faqTitle")}</div>
+                <div className="faq-text">{t("mainPage.faqDescription")}</div>
+              </div>
+            </div>
+          </div>
 
           <div className="upload-section fade-in fade-in-delay">
             <div
               {...getRootProps({ className: "dropzone" })}
               className="dnd-field"
             >
-              <input {...getInputProps()} />
+              <input {...getInputProps()} type="file" />
+              <img
+                src={"/dndicon.png"}
+                alt='File icon'
+                width="30"
+              />
               {isDragActive ? (
-                <p>{t("mainPage.dropHere") || "Drop the file here..."}</p>
+                <p>{t("mainPage.dropHere")}</p>
               ) : (
                 <p>
-                  {t("mainPage.dragHere") ||
-                    "Drag & drop CSV here, or click to select"}
+                  {t("mainPage.dragHere")}
                 </p>
               )}
             </div>
@@ -91,24 +131,25 @@ const MainPage = () => {
                 📂 {t("mainPage.selected")}: {fileName}
               </p>
             )}
-
-            <input
+            {file && <p style={{ textAlign: 'left', alignSelf: 'flex-start', color: 'white', marginTop: '20px' }}>{t("mainPage.parameter")}</p>}
+            {file && <CustomInput
               type="text"
               list="values"
               placeholder={t("mainPage.enterParameter")}
-              className="parameter-field"
+              className='parameter'
               value={parameter}
               onChange={(e) => {
                 setParameter(e.target.value);
               }}
-            />
+              style={{ maxWidth: '465px', marginBottom: '25px', height: '70px', textAlign: 'left' }}
+            />}
             <datalist id="values">
               <option>0.7</option>
               <option>0.8</option>
               <option>0.9</option>
             </datalist>
             {file && (
-              <CustomButton onClick={handleProcess} disabled={isLoading}>
+              <CustomButton onClick={handleProcess} disabled={isLoading} style={{ fontWeight: '600' }}>
                 {t("mainPage.process")}
               </CustomButton>
             )}
@@ -118,12 +159,16 @@ const MainPage = () => {
             <CustomButton
               className="fade-in fade-in-delay"
               onClick={() => navigate("/")}
+              style={{ width: '465px', fontWeight: '500' }}
             >
               {t("mainPage.logout")}
             </CustomButton>
           </div>
         </div>
       </div>
+      <button className="sidebar-icon" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+        <img src='/sidebar.png' alt='Sidebar' />
+      </button>
     </div>
   );
 };

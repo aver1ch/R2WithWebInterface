@@ -50,7 +50,14 @@ const Login = () => {
     <div className="background-main">
       <div className="container">
         <div className="rectangle-reg fade-in">
-          <Title>{t("login.title")}</Title>
+          <Title
+            style={{
+              fontWeight: "300",
+              color: theme === "dark" ? "#fff" : "#000",
+            }}
+          >
+            {t("login.title")}
+          </Title>
           <form onSubmit={handleSubmit} className="auth-field">
             <CustomInput
               type="text"
@@ -62,6 +69,8 @@ const Login = () => {
               }}
               required
               disabled={isLoading}
+              className={theme === 'light' ? 'light' : ''}
+
             />
             <div className="password-field">
               <CustomInput
@@ -113,6 +122,7 @@ const Login = () => {
                 className="reg-button"
                 type="submit"
                 disabled={isLoading}
+                style={{ fontWeight: 700, maxWidth: '361px', backgroundColor: theme === 'dark' ? "#fff" : "#005ADD", color: theme === 'dark' ? "#000" : "#fff" }}
               >
                 {isLoading
                   ? t("login.processing") || "Processing..."
@@ -120,9 +130,9 @@ const Login = () => {
               </CustomButton>
               <CustomButton
                 className="reg-button back-button"
-                type="button"
                 onClick={() => navigate("/")}
                 disabled={isLoading}
+                style={{ maxWidth: '361px', backgroundColor: theme === 'dark' ? '#fff' : 'rgba(0, 0, 0, 0.1)', fontWeight: 500 }}
               >
                 {t("login.back")}
               </CustomButton>

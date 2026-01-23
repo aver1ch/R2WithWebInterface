@@ -1,6 +1,9 @@
 .title {
-    font-size: 25px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    color: var(--text-primary, white);
+    font-size: 60px;
+    font-weight: 800;
+    margin-bottom: 30px;
+    color: var(--text-primary, black);
+    letter-spacing: 0.02em;
+    line-height: 0.95;
+    text-transform: uppercase;
   }

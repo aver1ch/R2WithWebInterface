@@ -2,10 +2,9 @@
     "welcome": {
       "title": "Regression Model Fitting",
       "description": "Upload a CSV file with your data — and get an optimal regression curve with calculated weights and visualized graphs, all available for download.",
-      "createAccount": "Create",
+      "createAccount": "Create an account",
       "alreadyExists": "Already exists? ",
-      "login": "Sign in",
-      "haveNotAccount": "Don't have an account? "
+      "signIn": "Sign In"
     },
     "login": {
       "title": "Login",
@@ -14,16 +13,16 @@
       "signIn": "Sign In",
       "back": "Back",
       "showPassword": "Show password",
-      "processing": "Processing"
+      "processing": "Processing..."
     },
     "register": {
       "title": "Sign up",
       "loginPlaceholder": "Enter your login",
       "passwordPlaceholder": "Enter your password",
-      "signIn": "Sign up",
+      "signIn": "Sign In",
       "back": "Back",
       "showPassword": "Show password",
-      "processing": "Processing"
+      "processing": "Processing..."
     },
     "mainPage": {
       "title": "Upload your CSV file",
@@ -32,9 +31,13 @@
       "process": "Process ⚙️",
       "logout": "Logout ↩",
       "invalidFileType": "Invalid file type, choose CSV",
-      "dragHere": "Drag & drop CSV here, or click to select", 
-      "dropHere": "Drop the file here...",
-      "enterParameter": "Enter the R² parameter",
-      "parameterError": "Please enter or select the parameter"
+      "dragHere": "DRAG AND DROP OR CLICK",
+      "dropHere": "Drop the file here",
+      "parameter": "Parameter R²",
+      "enterParameter": "Enter parameter R²",
+      "faqDescription": "CSV file format. The first column is the target variable, the rest are attributes",
+      "faqTitle": "Important!",
+      "historyTitle": "History of results",
+      "parameterError": "Parameter must be more than 0 and less than 1"
     }
   }

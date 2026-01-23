@@ -1,20 +1,39 @@
 .input {
-  padding: 12px 45px;
+  padding: 12px 35px;
+  margin: 10px;
   border-radius: 20px;
-  border: 2px solid rgba(44, 44, 44, 0.436);
-  background-color: rgba(102, 102, 102, 0.29);
+  border: none;
+  background-color: var(--input-text);
   color: var(--text-primary);
   font-size: 18px;
   text-align: center;
   outline: none;
   transition: 0.3s ease;
+  width: 100%;
+  max-width: 361px;
+  text-align: left;
 }
 
 .input::placeholder {
-  color: var(--text-primary);
+  color: var(--input-text);
+  text-align: left;
 }
 
 .input:focus {
   background-color: rgba(255, 255, 255, 0.2);
   box-shadow: 0px 0px 10px white;
+}
+
+.light,
+.input {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.light,
+.input::placeholder {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.parameter, .input::placeholder {
+  color: #fff
 }

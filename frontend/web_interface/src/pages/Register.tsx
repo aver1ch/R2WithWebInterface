@@ -31,7 +31,7 @@ const Register = () => {
 
     setIsLoading(true);
     setError(null);
-    //navigate("/MainPage"); // TODO убрать навигацию после того как бэк доделает авторизацию, сделано для теста страницы обработки
+    navigate("/MainPage"); // TODO убрать навигацию после того как бэк доделает авторизацию, сделано для теста страницы обработки
 
     try {
       const result = await registerUser({ login, password });
@@ -56,7 +56,14 @@ const Register = () => {
     <div className="background-main">
       <div className="container">
         <div className="rectangle-reg fade-in">
-          <Title>{t("register.title")}</Title>
+          <Title
+            style={{
+              fontWeight: "300",
+              color: theme === "dark" ? "#fff" : "#000",
+            }}
+          >
+            {t("register.title")}
+          </Title>
           <form onSubmit={handleSubmit} className="auth-field">
             <CustomInput
               type="text"
@@ -113,12 +120,21 @@ const Register = () => {
               </p>
             )}
             <div className="button-wrapper">
-              <CustomButton type="submit" disabled={isLoading}>
+              <CustomButton
+                className="reg-button"
+                type="submit"
+                disabled={isLoading}
+                style={{ fontWeight: 700, maxWidth: '361px', backgroundColor: theme === 'dark' ? "#fff" : "#005ADD", color: theme === 'dark' ? "#000" : "#fff" }}
+              >
                 {isLoading
                   ? t("register.processing") || "Processing..."
                   : t("register.signIn")}
               </CustomButton>
-              <CustomButton type="button" onClick={() => navigate("/Welcome")}>
+              <CustomButton
+                onClick={() => navigate("/Welcome")}
+                style={{ maxWidth: '361px', backgroundColor: theme === 'dark' ? '#fff' : 'rgba(0, 0, 0, 0.1)', fontWeight: 500 }}
+
+              >
                 {t("register.back")}
               </CustomButton>
             </div>
