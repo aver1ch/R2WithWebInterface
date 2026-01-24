@@ -7,17 +7,31 @@ import { useDropzone } from "react-dropzone";
 import { CustomInput } from "../components/UI/CustomInput/CustomInput";
 import Sidebar from "./Sidebar";
 import { useTheme } from "../hooks/useTheme";
+import { uploadCSVFile, getHistory, UploadHistoryItem } from "../api/api";
 
 const MainPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { theme } = useTheme();
   const [file, setFile] = useState<File | null>(null);
   const [fileName, setFileName] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [parameter, setParameter] = useState<string | number>("");
   const [error, setError] = useState<string | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+  const [historyItems, setHistoryItems] = useState<string[]>([]);
+
+  useEffect(() => {
+    loadHistory();
+  }, []);
+
+  const loadHistory = async () => {
+    try {
+      const history = await getHistory();
+      setHistoryItems(history.map((item) => `${item.filename} (${new Date(item.created_at).toLocaleString()})`));
+    } catch (error) {
+      console.error('Failed to load history:', error);
+    }
+  };
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
@@ -52,11 +66,9 @@ const MainPage = () => {
   });
 
   const handleProcess = async () => {
-    setIsLoading(false)
-    console.log(error)
     if (!file) return;
 
-    const value = Number(parameter)
+    const value = Number(parameter);
 
     if (!Number.isFinite(value) || value < 0 || value > 1) {
       setError(t("mainPage.parameterError"));
@@ -64,15 +76,35 @@ const MainPage = () => {
     }
     setError(null);
     setIsLoading(true);
-    // try {
-    //   const result = await uploadCSVFile(file, Number(parameter));
+    try {
+      const result = await uploadCSVFile(file, value);
+      if (result.csv_data) {
+        downloadCSV(result.csv_data);
+      }
+      // Reload history after successful upload
+      await loadHistory();
+      // Reset form
+      setFile(null);
+      setFileName("");
+      setParameter("");
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "File upload error");
+      console.error("Upload error:", e);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    // } catch (e) {
-    //   setError(e instanceof Error ? e.message : "File upload error");
-    //   console.error("Upload error:", e);
-    // } finally {
-    //   setIsLoading(false);
-    // }
+  const downloadCSV = (csvData: string) => {
+    const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'regression_results.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
   return (
     <div className="background-main">
@@ -80,7 +112,7 @@ const MainPage = () => {
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
         title={t("mainPage.historyTitle")}
-        items={["file1.csv", "file2.csv", "file3.csv"]}
+        items={historyItems.length > 0 ? historyItems : [t("mainPage.noHistory")]}
       />
 
       <div className="container">

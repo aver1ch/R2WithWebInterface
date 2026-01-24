@@ -29,7 +29,7 @@ const Login = () => {
     setError(null);
 
     try {
-      const result = await loginUser({ login, password });
+      const result = await loginUser({ email: login, password });
 
       if (result.token) {
         localStorage.setItem("authToken", result.token);

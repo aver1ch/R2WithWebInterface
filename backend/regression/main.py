@@ -32,9 +32,10 @@ def main():
         
         # Save CSV result
         csv_path = os.path.join(args.output, 'regression_results.csv')
-        with open(csv_path, 'w') as f:
-            if isinstance(result.get('csv_data'), str):
-                f.write(result['csv_data'])
+        with open(csv_path, 'w', encoding='utf-8') as f:
+            csv_data = result.get('coefficients_csv', '')
+            if csv_data:
+                f.write(csv_data)
         
         # Save image
         image_path = os.path.join(args.output, 'regression_plot.png')

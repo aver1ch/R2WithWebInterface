@@ -31,7 +31,6 @@ const Register = () => {
 
     setIsLoading(true);
     setError(null);
-    navigate("/MainPage"); // TODO убрать навигацию после того как бэк доделает авторизацию, сделано для теста страницы обработки
 
     try {
       const result = await registerUser({ email, password });
@@ -39,9 +38,8 @@ const Register = () => {
       if (result.token) {
         localStorage.setItem("authToken", result.token);
         localStorage.setItem("user", JSON.stringify(result.user));
+        navigate("/MainPage");
       }
-
-      navigate("/MainPage");
     } catch (e) {
       const errorMessage =
         e instanceof Error ? e.message : "Ошибка регистрации";
